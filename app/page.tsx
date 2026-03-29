@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 import { StartScreen } from '@/components/screens/StartScreen';
 import { SelectionScreen } from '@/components/screens/SelectionScreen';
@@ -18,7 +18,15 @@ import { useGreetingStore } from '@/store/useGreetingStore';
 
 export default function HomePage() {
   const store = useGreetingStore();
+const [showSplash, setShowSplash] = useState(true);
 
+useEffect(() => {
+  const timer = setTimeout(() => {
+    setShowSplash(false);
+  }, 1200);
+
+  return () => clearTimeout(timer);
+}, []);
   useEffect(() => {
     if (!store.copied) return;
     const timer = setTimeout(() => store.setCopied(false), 1600);
@@ -80,15 +88,45 @@ export default function HomePage() {
   };
 
   const currentScreen = !store.screen ? 'start' : store.screen;
+if (showSplash) {
+  return (
+  <motion.div
+    initial={{ opacity: 1 }}
+    animate={{ opacity: showSplash ? 1 : 0 }}
+    transition={{ duration: 0.4 }}
+    className="relative flex min-h-screen w-full items-center justify-center overflow-hidden bg-gradient-to-b from-[#fdf4ee] via-[#f7d6e6] to-[#eff4ee]"
+  >
+      <div className="absolute inset-0">
+        <div className="absolute left-1/2 top-[24%] h-[320px] w-[320px] -translate-x-1/2 rounded-full bg-white/45 blur-3xl" />
+        <div className="absolute bottom-[-40px] left-[-20px] h-[220px] w-[220px] rounded-full bg-[#e11569]/12 blur-3xl" />
+        <div className="absolute right-[-30px] top-[10%] h-[220px] w-[220px] rounded-full bg-[#49295a]/10 blur-3xl" />
+      </div>
 
+      <img
+        src="/splash-hero.png"
+        alt="Привітайко"
+        className="relative z-10 w-[94%] max-w-[430px] object-contain animate-splashFade"
+      />
+
+      <div className="absolute bottom-7 left-1/2 z-10 w-full -translate-x-1/2 px-6 text-center">
+        <p className="text-[11px] font-medium tracking-[0.04em] text-[#49295a]/72">
+          Version 1.0.0
+        </p>
+        <p className="mt-1 text-[11px] font-medium tracking-[0.02em] text-[#49295a]/72">
+          © 2026 Dmytro Zyma. All rights reserved.
+        </p>
+      </div>
+    </motion.div>
+  );
+}
   return (
     <AnimatePresence mode="sync" initial={false}>
       <motion.div
   key={currentScreen}
-  initial={{ opacity: 0 }}
-  animate={{ opacity: 1 }}
+  initial={{ opacity: 0, scale: 0.98 }}
+  animate={{ opacity: 1, scale: 1 }}
   exit={{ opacity: 1 }}
-  transition={{ duration: 0.12, ease: 'linear' }}
+  transition={{ duration: 0.25, ease: 'easeOut' }}
   style={{ height: '100%' }}
 >
         {currentScreen === 'start' && (
