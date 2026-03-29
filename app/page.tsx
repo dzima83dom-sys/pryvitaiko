@@ -82,15 +82,15 @@ export default function HomePage() {
   const currentScreen = !store.screen ? 'start' : store.screen;
 
   return (
-    <AnimatePresence mode="wait">
+    <AnimatePresence mode="sync" initial={false}>
       <motion.div
-        key={currentScreen}
-        initial={{ opacity: 0, y: 16 }}
-        animate={{ opacity: 1, y: 0 }}
-        exit={{ opacity: 0, y: -12 }}
-        transition={{ duration: 0.28, ease: 'easeOut' }}
-        style={{ height: '100%' }}
-      >
+  key={currentScreen}
+  initial={{ opacity: 0 }}
+  animate={{ opacity: 1 }}
+  exit={{ opacity: 1 }}
+  transition={{ duration: 0.12, ease: 'linear' }}
+  style={{ height: '100%' }}
+>
         {currentScreen === 'start' && (
           <StartScreen onStart={() => store.setScreen('recipient')} />
         )}
