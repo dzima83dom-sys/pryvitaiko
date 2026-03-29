@@ -261,6 +261,59 @@ export function IntroAnimationScreen() {
           />
         </motion.div>
       </div>
+
+      <div className="pointer-events-none absolute inset-x-0 bottom-[6.5vh] z-40 flex flex-col items-center px-6 text-center">
+        <motion.div
+          initial={{ opacity: 0, y: 28, scale: 0.88 }}
+          animate={{ opacity: 1, y: 0, scale: 1 }}
+          transition={{
+            duration: 0.75,
+            delay: 0.45,
+            ease: [0.22, 1, 0.36, 1],
+          }}
+          className="relative"
+        >
+          <motion.div
+            className="absolute inset-0 rounded-full bg-white/12 blur-2xl"
+            animate={{
+              opacity: [0.25, 0.5, 0.25],
+              scale: [0.96, 1.04, 0.96],
+            }}
+            transition={{
+              duration: 2.4,
+              repeat: Infinity,
+              ease: 'easeInOut',
+            }}
+          />
+
+          <h1
+            className="relative text-[42px] font-black uppercase leading-none tracking-[0.03em] text-white drop-shadow-[0_6px_16px_rgba(73,41,90,0.45)] sm:text-[48px]"
+            style={{
+              WebkitTextStroke: '1.6px rgba(95, 35, 107, 0.55)',
+              textShadow:
+                '0 3px 0 rgba(118,54,140,0.35), 0 10px 28px rgba(73,41,90,0.38)',
+            }}
+          >
+            Привітайко
+          </h1>
+        </motion.div>
+
+        <motion.p
+          initial={{ opacity: 0, y: 18 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{
+            duration: 0.65,
+            delay: 1.05,
+            ease: 'easeOut',
+          }}
+          className="mt-2 max-w-[320px] text-[15px] font-extrabold leading-snug tracking-[0.01em] text-[#fff6ff] drop-shadow-[0_4px_14px_rgba(73,41,90,0.34)] sm:text-base"
+          style={{
+            textShadow: '0 3px 14px rgba(73,41,90,0.28)',
+          }}
+        >
+          Крутезні привітання на кожен день
+        </motion.p>
+      </div>
     </div>
   );
 }
