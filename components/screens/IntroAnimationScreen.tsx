@@ -111,14 +111,20 @@ const sparkles = [
 
 export function IntroAnimationScreen() {
   return (
-    <div className="relative flex h-screen w-full items-center justify-center overflow-hidden">
-      <Image
-        src="/bg_intro.png"
-        alt="background"
-        fill
-        priority
-        className="object-cover w-full h-full"
+    <div
+      className="relative overflow-hidden"
+      style={{ width: '100vw', height: '100dvh' }}
+    >
+      <div
+        className="absolute inset-0"
+        style={{
+          backgroundImage: "url('/bg_intro.png')",
+          backgroundSize: 'cover',
+          backgroundPosition: 'center center',
+          backgroundRepeat: 'no-repeat',
+        }}
       />
+
       <div className="absolute inset-0 bg-black/5" />
 
       <motion.div
@@ -160,108 +166,110 @@ export function IntroAnimationScreen() {
         }}
       />
 
-      <motion.div
-        initial={{ opacity: 0, y: 28, scale: 0.94 }}
-        animate={{
-          opacity: 1,
-          y: [0, -8, 0],
-          scale: 1,
-        }}
-        transition={{
-          opacity: { duration: 0.6, ease: 'easeOut' },
-          y: {
-            duration: 2.6,
-            repeat: Infinity,
-            ease: 'easeInOut',
-          },
-          scale: { duration: 0.6, ease: 'easeOut' },
-        }}
-        className="relative z-10 h-[420px] w-[320px]"
-      >
+      <div className="absolute inset-0 flex items-center justify-center">
         <motion.div
-          className="absolute left-[206px] top-[116px] h-[120px] w-[120px] rounded-full bg-[#ffd7ef]/80 blur-3xl"
+          initial={{ opacity: 0, y: 28, scale: 0.94 }}
           animate={{
-            scale: [1, 1.28, 1],
-            opacity: [0.35, 0.95, 0.35],
+            opacity: 1,
+            y: [0, -8, 0],
+            scale: 1,
           }}
           transition={{
-            duration: 1.8,
-            repeat: Infinity,
-            ease: 'easeInOut',
+            opacity: { duration: 0.6, ease: 'easeOut' },
+            y: {
+              duration: 2.6,
+              repeat: Infinity,
+              ease: 'easeInOut',
+            },
+            scale: { duration: 0.6, ease: 'easeOut' },
           }}
-        />
-
-        <motion.div
-          className="absolute left-[194px] top-[106px] h-[146px] w-[146px] rounded-full bg-white/55 blur-3xl"
-          animate={{
-            scale: [0.96, 1.16, 0.96],
-            opacity: [0.2, 0.52, 0.2],
-          }}
-          transition={{
-            duration: 2.2,
-            repeat: Infinity,
-            ease: 'easeInOut',
-          }}
-        />
-
-        {sparkles.map((item, index) => (
+          className="relative z-10 h-[420px] w-[320px] shrink-0"
+        >
           <motion.div
-            key={index}
-            className="absolute rounded-full bg-white/85 shadow-[0_0_14px_rgba(255,255,255,0.85)]"
-            style={{
-              left: item.left,
-              top: item.top,
-              width: item.size,
-              height: item.size,
-            }}
+            className="absolute left-[206px] top-[116px] h-[120px] w-[120px] rounded-full bg-[#ffd7ef]/80 blur-3xl"
             animate={{
-              opacity: [0, 1, 0],
-              scale: [0.4, 1.2, 0.6],
-              y: [0, -10, -18],
+              scale: [1, 1.28, 1],
+              opacity: [0.35, 0.95, 0.35],
             }}
             transition={{
               duration: 1.8,
-              delay: item.delay,
               repeat: Infinity,
-              repeatDelay: 0.5,
-              ease: 'easeOut',
+              ease: 'easeInOut',
             }}
           />
-        ))}
 
-        {greetingBursts.map((item) => (
           <motion.div
-            key={item.text}
-            className={`absolute z-30 rounded-full px-4 py-2 text-[13px] font-semibold tracking-[0.01em] backdrop-blur-md ${item.className}`}
-            initial={{ opacity: 0 }}
-            animate={item.animate}
-            transition={item.transition}
-          >
-            <motion.span
-              className="block whitespace-nowrap"
+            className="absolute left-[194px] top-[106px] h-[146px] w-[146px] rounded-full bg-white/55 blur-3xl"
+            animate={{
+              scale: [0.96, 1.16, 0.96],
+              opacity: [0.2, 0.52, 0.2],
+            }}
+            transition={{
+              duration: 2.2,
+              repeat: Infinity,
+              ease: 'easeInOut',
+            }}
+          />
+
+          {sparkles.map((item, index) => (
+            <motion.div
+              key={index}
+              className="absolute rounded-full bg-white/85 shadow-[0_0_14px_rgba(255,255,255,0.85)]"
+              style={{
+                left: item.left,
+                top: item.top,
+                width: item.size,
+                height: item.size,
+              }}
               animate={{
-                letterSpacing: ['0em', '0.02em', '0em'],
+                opacity: [0, 1, 0],
+                scale: [0.4, 1.2, 0.6],
+                y: [0, -10, -18],
               }}
               transition={{
-                duration: 1.6,
+                duration: 1.8,
+                delay: item.delay,
                 repeat: Infinity,
-                ease: 'easeInOut',
+                repeatDelay: 0.5,
+                ease: 'easeOut',
               }}
-            >
-              {item.text}
-            </motion.span>
-          </motion.div>
-        ))}
+            />
+          ))}
 
-        <Image
-          src="/hero-phone.png"
-          alt="hero"
-          width={320}
-          height={420}
-          priority
-          className="relative z-20 h-auto w-full object-contain drop-shadow-[0_22px_45px_rgba(94,33,97,0.22)]"
-        />
-      </motion.div>
+          {greetingBursts.map((item) => (
+            <motion.div
+              key={item.text}
+              className={`absolute z-30 rounded-full px-4 py-2 text-[13px] font-semibold tracking-[0.01em] backdrop-blur-md ${item.className}`}
+              initial={{ opacity: 0 }}
+              animate={item.animate}
+              transition={item.transition}
+            >
+              <motion.span
+                className="block whitespace-nowrap"
+                animate={{
+                  letterSpacing: ['0em', '0.02em', '0em'],
+                }}
+                transition={{
+                  duration: 1.6,
+                  repeat: Infinity,
+                  ease: 'easeInOut',
+                }}
+              >
+                {item.text}
+              </motion.span>
+            </motion.div>
+          ))}
+
+          <Image
+            src="/hero-phone.png"
+            alt="hero"
+            width={320}
+            height={420}
+            priority
+            className="relative z-20 h-auto w-full object-contain drop-shadow-[0_22px_45px_rgba(94,33,97,0.22)]"
+          />
+        </motion.div>
+      </div>
     </div>
   );
 }
