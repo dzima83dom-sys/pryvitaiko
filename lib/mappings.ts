@@ -18,22 +18,34 @@ const genericRecipientByGender = {
 } as const;
 
 export function getResolvedRecipient(state: GreetingState): string {
-  if (state.recipientCustomValue.trim()) {
-    return state.recipientCustomValue.trim();
+  const customValue = state.recipientCustomValue.trim();
+  if (customValue) {
+    return customValue;
   }
 
   if (!state.recipient) {
     return '';
   }
 
-  if (state.gender && state.recipient in pairMap) {
+  if (state.recipient in pairMap) {
     const mapped = pairMap[state.recipient as keyof typeof pairMap];
-    return mapped[state.gender];
+
+    if (state.gender === 'male' || state.gender === 'female') {
+      return mapped[state.gender];
+    }
+
+    return state.recipientLabel;
   }
 
-  if (state.gender && state.recipient in genericRecipientByGender) {
-    const mapped = genericRecipientByGender[state.recipient as keyof typeof genericRecipientByGender];
-    return mapped[state.gender];
+  if (state.recipient in genericRecipientByGender) {
+    const mapped =
+      genericRecipientByGender[state.recipient as keyof typeof genericRecipientByGender];
+
+    if (state.gender === 'male' || state.gender === 'female') {
+      return mapped[state.gender];
+    }
+
+    return state.recipientLabel;
   }
 
   return state.recipientLabel;
