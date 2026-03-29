@@ -47,12 +47,7 @@ export function SelectionScreen({
         </div>
       </div>
 
-      <motion.div
-        initial={{ opacity: 0, y: 14 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.35, ease: 'easeOut' }}
-        className="mt-3 grid grid-cols-3 gap-4"
-      >
+      <div className="mt-3 grid grid-cols-3 gap-4">
         {options.map((option) => (
           <OptionCard
             key={option.id}
@@ -62,21 +57,26 @@ export function SelectionScreen({
             onClick={() => onSelect(option)}
           />
         ))}
-      </motion.div>
+      </div>
 
       <AnimatePresence mode="wait">
         {otherSelected ? (
-          <div className="mt-3 grid grid-cols-3 gap-4">
-  {options.map((option) => (
-    <OptionCard
-      key={option.id}
-      emoji={option.emoji}
-      label={option.label}
-      selected={selected === option.id}
-      onClick={() => onSelect(option)}
-    />
-  ))}
-</div>
+          <motion.div
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: 6 }}
+            transition={{ duration: 0.2, ease: 'easeOut' }}
+            className="mt-auto flex flex-col gap-3 pt-4"
+          >
+            <TextField
+              value={customValue}
+              onChange={onCustomValueChange}
+              placeholder={customPlaceholder}
+            />
+            <PrimaryButton disabled={!canContinue} onClick={onSubmitCustom}>
+              Рухаємося далі
+            </PrimaryButton>
+          </motion.div>
         ) : null}
       </AnimatePresence>
     </AppShell>
