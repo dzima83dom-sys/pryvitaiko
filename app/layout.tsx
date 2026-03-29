@@ -11,6 +11,12 @@ const manrope = Manrope({
 export const metadata: Metadata = {
   title: "Привітайко",
   description: "Генератор привітань",
+  themeColor: "#fdf4ee",
+  appleWebApp: {
+    capable: true,
+    statusBarStyle: "default",
+    title: "Привітайко",
+  },
 };
 
 export const viewport: Viewport = {
