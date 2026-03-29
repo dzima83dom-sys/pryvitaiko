@@ -14,11 +14,7 @@ export function OptionCard({
   tall?: boolean;
 }) {
   return (
-    <motion.button
-      initial={{ opacity: 0, y: 10 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.24, ease: 'easeOut' }}
-      whileTap={{ scale: 0.96, y: 1 }}
+    <button
       type="button"
       onClick={onClick}
       className="flex flex-col items-center justify-center text-center text-cream"
@@ -93,6 +89,6 @@ export function OptionCard({
       >
         {label}
       </span>
-    </motion.button>
+    </button>
   );
 }
