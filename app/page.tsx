@@ -7,6 +7,7 @@ import { SelectionScreen } from '@/components/screens/SelectionScreen';
 import { DetailsScreen } from '@/components/screens/DetailsScreen';
 import { EmotionScreen } from '@/components/screens/EmotionScreen';
 import { ResultScreen } from '@/components/screens/ResultScreen';
+import { IntroAnimationScreen } from '@/components/screens/IntroAnimationScreen';
 import {
   OCCASION_OPTIONS,
   PROFESSION_OPTIONS,
@@ -19,13 +20,21 @@ import { useGreetingStore } from '@/store/useGreetingStore';
 export default function HomePage() {
   const store = useGreetingStore();
 const [showSplash, setShowSplash] = useState(true);
+const [showIntro, setShowIntro] = useState(true);
 
 useEffect(() => {
-  const timer = setTimeout(() => {
+  const splashTimer = setTimeout(() => {
     setShowSplash(false);
   }, 1200);
 
-  return () => clearTimeout(timer);
+  const introTimer = setTimeout(() => {
+    setShowIntro(false);
+  }, 3400);
+
+  return () => {
+    clearTimeout(splashTimer);
+    clearTimeout(introTimer);
+  };
 }, []);
   useEffect(() => {
     if (!store.copied) return;
@@ -139,6 +148,9 @@ if (showSplash) {
 </div>
     </motion.div>
   );
+}
+if (showIntro) {
+  return <IntroAnimationScreen />;
 }
   return (
     <AnimatePresence mode="sync" initial={false}>
