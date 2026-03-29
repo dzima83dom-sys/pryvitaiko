@@ -7,18 +7,18 @@ export default function manifest(): MetadataRoute.Manifest {
     description: 'PWA-застосунок для створення персоналізованих привітань.',
     start_url: '/',
     display: 'standalone',
-    background_color: '#0e0b16',
-    theme_color: '#8b5cf6',
+    background_color: '#fdf4ee',
+    theme_color: '#fdf4ee',
     lang: 'uk',
     orientation: 'portrait',
     icons: [
       {
-        src: '/avatar.png',
+        src: '/splash-hero.png',
         sizes: '512x512',
         type: 'image/png',
       },
       {
-        src: '/avatar.png',
+        src: '/splash-hero.png',
         sizes: '192x192',
         type: 'image/png',
       },
