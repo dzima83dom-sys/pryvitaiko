@@ -47,26 +47,22 @@ export function SelectionScreen({
       </div>
 
       <motion.div
-  initial="hidden"
-  animate="show"
-  variants={{
-    hidden: {},
-    show: {
-      transition: {
-        staggerChildren: 0.05,
-      },
-    },
-  }}
+  initial={{ opacity: 0, y: 14 }}
+  animate={{ opacity: 1, y: 0 }}
+  transition={{ duration: 0.35 }}
   className="mt-3 grid grid-cols-3 gap-4"
 >
-  {options.map((option) => (
+  {options.map((option, index) => (
     <motion.div
       key={option.id}
-      variants={{
-        hidden: { opacity: 0, y: 10 },
-        show: { opacity: 1, y: 0 },
+      initial={{ opacity: 0, y: 10 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{
+        duration: 0.25,
+        delay: index * 0.04,
+        ease: 'easeOut',
       }}
-      transition={{ duration: 0.22, ease: 'easeOut' }}
+      style={{ width: '100%' }}
     >
       <OptionCard
         emoji={option.emoji}
