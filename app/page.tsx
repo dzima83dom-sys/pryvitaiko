@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 import { StartScreen } from '@/components/screens/StartScreen';
 import { SelectionScreen } from '@/components/screens/SelectionScreen';
@@ -17,25 +17,27 @@ import {
 import { clampText } from '@/lib/utils';
 import { useGreetingStore } from '@/store/useGreetingStore';
 
+type IntroPhase = 'splash' | 'intro' | 'app';
+
 export default function HomePage() {
   const store = useGreetingStore();
-const [showSplash, setShowSplash] = useState(true);
-const [showIntro, setShowIntro] = useState(true);
+  const [phase, setPhase] = useState<IntroPhase>('splash');
 
-useEffect(() => {
-  const splashTimer = setTimeout(() => {
-    setShowSplash(false);
-  }, 1200);
+  useEffect(() => {
+    const splashTimer = setTimeout(() => {
+      setPhase('intro');
+    }, 1200);
 
-  const introTimer = setTimeout(() => {
-    setShowIntro(false);
-  }, 3400);
+    const appTimer = setTimeout(() => {
+      setPhase('app');
+    }, 3400);
 
-  return () => {
-    clearTimeout(splashTimer);
-    clearTimeout(introTimer);
-  };
-}, []);
+    return () => {
+      clearTimeout(splashTimer);
+      clearTimeout(appTimer);
+    };
+  }, []);
+
   useEffect(() => {
     if (!store.copied) return;
     const timer = setTimeout(() => store.setCopied(false), 1600);
@@ -97,197 +99,227 @@ useEffect(() => {
   };
 
   const currentScreen = !store.screen ? 'start' : store.screen;
-if (showSplash) {
+
+  const appContent = useMemo(() => {
+    if (currentScreen === 'start') {
+      return <StartScreen onStart={() => store.setScreen('recipient')} />;
+    }
+
+    if (currentScreen === 'recipient') {
+      return (
+        <SelectionScreen
+          step={1}
+          title="Підкажи, кого будемо вітати"
+          options={RECIPIENT_OPTIONS}
+          selected={store.recipient || ''}
+          customValue={store.recipientCustomValue || ''}
+          customPlaceholder="Введіть, кого потрібно привітати"
+          onBack={() => store.setScreen('start')}
+          onSelect={(option) => {
+            store.setRecipient({
+              value: option.id,
+              label: option.label,
+              custom: option.isOther,
+            });
+
+            if (!option.isOther) {
+              store.setScreen('profession');
+            }
+          }}
+          onCustomValueChange={(value) =>
+            store.setRecipientCustomValue(clampText(value))
+          }
+          onSubmitCustom={() => store.setScreen('profession')}
+        />
+      );
+    }
+
+    if (currentScreen === 'profession') {
+      return (
+        <SelectionScreen
+          step={2}
+          title="Давай зробимо ще крутіше 😉 В якій сфері працює ця людина?"
+          options={PROFESSION_OPTIONS}
+          selected={store.profession || ''}
+          customValue={store.professionCustomValue || ''}
+          customPlaceholder="Введіть сферу діяльності"
+          onBack={() => store.setScreen('recipient')}
+          onSelect={(option) => {
+            store.setProfession({
+              value: option.id,
+              label: option.label,
+              custom: option.isOther,
+            });
+
+            if (!option.isOther) {
+              store.setScreen('occasion');
+            }
+          }}
+          onCustomValueChange={(value) =>
+            store.setProfessionCustomValue(clampText(value))
+          }
+          onSubmitCustom={() => store.setScreen('occasion')}
+        />
+      );
+    }
+
+    if (currentScreen === 'occasion') {
+      return (
+        <SelectionScreen
+          step={3}
+          title="З якої нагоди будемо вітати?"
+          options={OCCASION_OPTIONS}
+          selected={store.occasion || ''}
+          customValue={store.occasionCustomValue || ''}
+          customPlaceholder="Введіть нагоду"
+          onBack={() => store.setScreen('profession')}
+          onSelect={(option) => {
+            store.setOccasion({
+              value: option.id,
+              label: option.label,
+            });
+
+            if (!option.isOther) {
+              store.setScreen('details');
+            }
+          }}
+          onCustomValueChange={(value) =>
+            store.setOccasionCustomValue(clampText(value))
+          }
+          onSubmitCustom={() => store.setScreen('details')}
+        />
+      );
+    }
+
+    if (currentScreen === 'details') {
+      return (
+        <DetailsScreen
+          name={store.name || ''}
+          gender={store.gender || ''}
+          age={store.age || ''}
+          onBack={() => store.setScreen('occasion')}
+          onNameChange={(value) => store.setName(clampText(value))}
+          onGenderChange={(value) => store.setGender(value as any)}
+          onAgeChange={(value) => store.setAge(value as any)}
+          onNext={() => store.setScreen('emotion')}
+        />
+      );
+    }
+
+    if (currentScreen === 'emotion') {
+      return (
+        <EmotionScreen
+          selected={store.emotion || ''}
+          onBack={() => store.setScreen('details')}
+          onSelect={(value) => {
+            const option = EMOTION_OPTIONS.find((item) => item.id === value);
+            if (!option) return;
+
+            store.setEmotion({
+              value: option.id,
+              label: option.label,
+            });
+          }}
+          onSubmit={generateGreeting}
+        />
+      );
+    }
+
+    return (
+      <ResultScreen
+        isLoading={store.status === 'loading'}
+        text={store.generatedText || ''}
+        onBack={() => {
+          store.setStatus('idle');
+          store.setScreen('emotion');
+        }}
+        handleCopy={copyGreeting}
+      />
+    );
+  }, [currentScreen, store]);
+
   return (
-  <motion.div
-    initial={{ opacity: 1 }}
-    animate={{ opacity: showSplash ? 1 : 0 }}
-    transition={{ duration: 0.4 }}
-    className="relative flex min-h-screen w-full items-center justify-center overflow-hidden bg-gradient-to-b from-[#fdf4ee] via-[#f7d6e6] to-[#eff4ee]"
-  >
-      <div className="absolute inset-0 bg-gradient-to-b from-[#fdf4ee] via-[#f7d6e6] to-[#eff4ee]" />
+    <div className="relative min-h-screen w-full overflow-hidden bg-gradient-to-b from-[#fdf4ee] via-[#f7d6e6] to-[#eff4ee]">
+      <AnimatePresence mode="wait" initial={false}>
+        {phase === 'splash' && (
+          <motion.div
+            key="splash"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.45, ease: 'easeInOut' }}
+            className="absolute inset-0 z-30 flex min-h-screen w-full items-center justify-center overflow-hidden bg-gradient-to-b from-[#fdf4ee] via-[#f7d6e6] to-[#eff4ee]"
+          >
+            <div className="absolute inset-0 bg-gradient-to-b from-[#fdf4ee] via-[#f7d6e6] to-[#eff4ee]" />
 
-      <img
-  src="/splash-hero.png"
-  alt="Привітайко"
-  className="relative z-10 w-[78%] max-w-[300px] object-contain -translate-y-10 animate-splashFade"
-/>
+            <img
+              src="/splash-hero.png"
+              alt="Привітайко"
+              className="relative z-10 w-[78%] max-w-[300px] object-contain -translate-y-10 animate-splashFade"
+            />
 
-    <div
-  style={{
-    position: 'fixed',
-    left: 0,
-    right: 0,
-    bottom: '8px',
-    zIndex: 9999,
-    textAlign: 'center',
-    lineHeight: 1.2,
-    pointerEvents: 'none',
-  }}
->
-  <p
-    style={{
-      margin: 0,
-      fontSize: '10px',
-      fontWeight: 500,
-      color: 'rgba(73, 41, 90, 0.7)',
-    }}
-  >
-    Version 1.0.0
-  </p>
-  <p
-    style={{
-      margin: '2px 0 0 0',
-      fontSize: '10px',
-      fontWeight: 500,
-      color: 'rgba(73, 41, 90, 0.7)',
-    }}
-  >
-    © 2026 Dmytro Zyma. All rights reserved.
-  </p>
-</div>
-    </motion.div>
-  );
-}
-if (showIntro) {
-  return <IntroAnimationScreen />;
-}
-  return (
-    <AnimatePresence mode="sync" initial={false}>
-      <motion.div
-  key={currentScreen}
-  initial={{ opacity: 0, scale: 0.98 }}
-  animate={{ opacity: 1, scale: 1 }}
-  exit={{ opacity: 1 }}
-  transition={{ duration: 0.25, ease: 'easeOut' }}
-  style={{ height: '100%' }}
->
-        {currentScreen === 'start' && (
-          <StartScreen onStart={() => store.setScreen('recipient')} />
+            <div
+              style={{
+                position: 'fixed',
+                left: 0,
+                right: 0,
+                bottom: '8px',
+                zIndex: 9999,
+                textAlign: 'center',
+                lineHeight: 1.2,
+                pointerEvents: 'none',
+              }}
+            >
+              <p
+                style={{
+                  margin: 0,
+                  fontSize: '10px',
+                  fontWeight: 500,
+                  color: 'rgba(73, 41, 90, 0.7)',
+                }}
+              >
+                Version 1.0.0
+              </p>
+              <p
+                style={{
+                  margin: '2px 0 0 0',
+                  fontSize: '10px',
+                  fontWeight: 500,
+                  color: 'rgba(73, 41, 90, 0.7)',
+                }}
+              >
+                © 2026 Dmytro Zyma. All rights reserved.
+              </p>
+            </div>
+          </motion.div>
         )}
 
-        {currentScreen === 'recipient' && (
-          <SelectionScreen
-            step={1}
-            title="Підкажи, кого будемо вітати"
-            options={RECIPIENT_OPTIONS}
-            selected={store.recipient || ''}
-            customValue={store.recipientCustomValue || ''}
-            customPlaceholder="Введіть, кого потрібно привітати"
-            onBack={() => store.setScreen('start')}
-            onSelect={(option) => {
-              store.setRecipient({
-                value: option.id,
-                label: option.label,
-                custom: option.isOther,
-              });
-
-              if (!option.isOther) {
-                store.setScreen('profession');
-              }
-            }}
-            onCustomValueChange={(value) =>
-              store.setRecipientCustomValue(clampText(value))
-            }
-            onSubmitCustom={() => store.setScreen('profession')}
-          />
+        {phase === 'intro' && (
+          <motion.div
+            key="intro"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.5, ease: 'easeInOut' }}
+            className="absolute inset-0 z-20"
+          >
+            <IntroAnimationScreen />
+          </motion.div>
         )}
 
-        {currentScreen === 'profession' && (
-          <SelectionScreen
-            step={2}
-            title="Давай зробимо ще крутіше 😉 В якій сфері працює ця людина?"
-            options={PROFESSION_OPTIONS}
-            selected={store.profession || ''}
-            customValue={store.professionCustomValue || ''}
-            customPlaceholder="Введіть сферу діяльності"
-            onBack={() => store.setScreen('recipient')}
-            onSelect={(option) => {
-              store.setProfession({
-                value: option.id,
-                label: option.label,
-                custom: option.isOther,
-              });
-
-              if (!option.isOther) {
-                store.setScreen('occasion');
-              }
-            }}
-            onCustomValueChange={(value) =>
-              store.setProfessionCustomValue(clampText(value))
-            }
-            onSubmitCustom={() => store.setScreen('occasion')}
-          />
+        {phase === 'app' && (
+          <motion.div
+            key={`app-${currentScreen}`}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.45, ease: 'easeInOut' }}
+            className="relative z-10 min-h-screen"
+          >
+            {appContent}
+          </motion.div>
         )}
-
-        {currentScreen === 'occasion' && (
-          <SelectionScreen
-            step={3}
-            title="З якої нагоди будемо вітати?"
-            options={OCCASION_OPTIONS}
-            selected={store.occasion || ''}
-            customValue={store.occasionCustomValue || ''}
-            customPlaceholder="Введіть нагоду"
-            onBack={() => store.setScreen('profession')}
-            onSelect={(option) => {
-              store.setOccasion({
-                value: option.id,
-                label: option.label,
-              });
-
-              if (!option.isOther) {
-                store.setScreen('details');
-              }
-            }}
-            onCustomValueChange={(value) =>
-              store.setOccasionCustomValue(clampText(value))
-            }
-            onSubmitCustom={() => store.setScreen('details')}
-          />
-        )}
-
-        {currentScreen === 'details' && (
-          <DetailsScreen
-            name={store.name || ''}
-            gender={store.gender || ''}
-            age={store.age || ''}
-            onBack={() => store.setScreen('occasion')}
-            onNameChange={(value) => store.setName(clampText(value))}
-            onGenderChange={(value) => store.setGender(value as any)}
-            onAgeChange={(value) => store.setAge(value as any)}
-            onNext={() => store.setScreen('emotion')}
-          />
-        )}
-
-        {currentScreen === 'emotion' && (
-          <EmotionScreen
-            selected={store.emotion || ''}
-            onBack={() => store.setScreen('details')}
-            onSelect={(value) => {
-              const option = EMOTION_OPTIONS.find((item) => item.id === value);
-              if (!option) return;
-
-              store.setEmotion({
-                value: option.id,
-                label: option.label,
-              });
-            }}
-            onSubmit={generateGreeting}
-          />
-        )}
-
-        {currentScreen === 'result' && (
-          <ResultScreen
-            isLoading={store.status === 'loading'}
-            text={store.generatedText || ''}
-            onBack={() => {
-              store.setStatus('idle');
-              store.setScreen('emotion');
-            }}
-            handleCopy={copyGreeting}
-          />
-        )}
-      </motion.div>
-    </AnimatePresence>
+      </AnimatePresence>
+    </div>
   );
 }
