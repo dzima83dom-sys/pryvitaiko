@@ -117,8 +117,9 @@ export function IntroAnimationScreen() {
         alt="background"
         fill
         priority
-        className="object-cover"
+        className="object-cover w-full h-full"
       />
+      <div className="absolute inset-0 bg-black/5" />
 
       <motion.div
         className="absolute left-[8%] top-[10%] h-[180px] w-[180px] rounded-full bg-[#ffd7e8]/50 blur-3xl"
