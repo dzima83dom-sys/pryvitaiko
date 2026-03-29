@@ -9,8 +9,8 @@ const greetingBursts = [
     className:
       'left-[178px] top-[118px] bg-white/88 text-[#7a2f72] border border-white/70 shadow-[0_10px_35px_rgba(122,47,114,0.18)]',
     animate: {
-      x: [0, 24, 42],
-      y: [0, -42, -92],
+      x: [0, 60, 120],
+      y: [0, -80, -180],
       opacity: [0, 1, 1, 0],
       scale: [0.86, 1.04, 1],
       rotate: [6, 2, -2],
@@ -28,8 +28,8 @@ const greetingBursts = [
     className:
       'left-[168px] top-[146px] bg-[#fff6fb]/90 text-[#9b2c6b] border border-white/75 shadow-[0_10px_32px_rgba(155,44,107,0.16)]',
     animate: {
-      x: [0, 56, 86],
-      y: [0, -20, -66],
+      x: [0, 76, 106],
+      y: [0, -70, -140],
       opacity: [0, 1, 1, 0],
       scale: [0.84, 1.02, 0.98],
       rotate: [10, 4, 0],
@@ -47,8 +47,8 @@ const greetingBursts = [
     className:
       'left-[150px] top-[132px] bg-[#fffdfd]/88 text-[#6e2e82] border border-white/70 shadow-[0_10px_30px_rgba(110,46,130,0.16)]',
     animate: {
-      x: [0, -6, -28],
-      y: [0, -48, -102],
+      x: [0, -46, -88],
+      y: [0, -78, -122],
       opacity: [0, 1, 1, 0],
       scale: [0.82, 1.03, 1],
       rotate: [-8, -4, 2],
@@ -66,8 +66,8 @@ const greetingBursts = [
     className:
       'left-[160px] top-[168px] bg-white/90 text-[#b03b67] border border-white/80 shadow-[0_10px_30px_rgba(176,59,103,0.15)]',
     animate: {
-      x: [0, 18, 12],
-      y: [0, -30, -70],
+      x: [0, 78, 102],
+      y: [0, -60, -140],
       opacity: [0, 1, 1, 0],
       scale: [0.85, 1.03, 0.98],
       rotate: [4, 1, -3],
@@ -85,8 +85,8 @@ const greetingBursts = [
     className:
       'left-[186px] top-[176px] bg-[#fff7ef]/92 text-[#8c3d5b] border border-white/70 shadow-[0_10px_30px_rgba(140,61,91,0.14)]',
     animate: {
-      x: [0, 40, 60],
-      y: [0, -8, -48],
+      x: [0, 60, 80],
+      y: [0, -30, -78],
       opacity: [0, 1, 1, 0],
       scale: [0.8, 1.02, 0.98],
       rotate: [9, 5, 1],
