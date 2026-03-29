@@ -5,7 +5,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { Share2, Copy, Send, Phone, X } from 'lucide-react';
 import { AppShell } from '@/components/ui/AppShell';
 import { GlassCard } from '@/components/ui/GlassCard';
-
+import GenerationCountdown from '@/components/GenerationCountdown';
 export function ResultScreen({
   text,
   onBack,
@@ -184,13 +184,15 @@ export function ResultScreen({
 
           {isLoading ? (
             <div
-              className="flex h-full items-center justify-center"
-              style={{
-                padding: '24px',
-                position: 'relative',
-                zIndex: 1,
-              }}
-            >
+  className="flex h-full items-center justify-center flex-col"
+  style={{
+    padding: '24px',
+    position: 'relative',
+    zIndex: 1,
+    gap: '10px',
+  }}
+>
+              <GenerationCountdown isVisible={isLoading} />
               <div
                 style={{
                   position: 'relative',
@@ -267,7 +269,7 @@ export function ResultScreen({
                     opacity: [0.9, 1, 0.9],
                   }}
                   transition={{
-                    duration: 1.6,
+                    duration: 1,
                     repeat: Infinity,
                     ease: 'easeInOut',
                   }}
@@ -321,9 +323,10 @@ export function ResultScreen({
             </div>
           ) : (
             <motion.div
-              initial={{ opacity: 0, y: 10 }}
-              animate={{ opacity: 1, y: 0 }}
-              className="scrollbar-soft h-full min-h-0 overflow-y-auto"
+  initial={{ opacity: 0, scale: 0.96, y: 20 }}
+  animate={{ opacity: 1, scale: 1, y: 0 }}
+  transition={{ duration: 0.5, ease: 'easeOut' }}
+  className="scrollbar-soft h-full min-h-0 overflow-y-auto"
               style={{
                 WebkitOverflowScrolling: 'touch',
                 position: 'relative',
