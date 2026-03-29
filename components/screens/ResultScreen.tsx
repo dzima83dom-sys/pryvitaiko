@@ -102,13 +102,13 @@ export function ResultScreen({
               height: '56px',
               padding: '0 16px',
               borderRadius: '20px',
-              border: '1px solid rgba(255,255,255,0.30)',
+              border: '1px solid rgba(255,255,255,0.34)',
               background:
-                'linear-gradient(180deg, rgba(255,255,255,0.28) 0%, rgba(255,255,255,0.12) 100%)',
-              backdropFilter: 'blur(12px)',
-              WebkitBackdropFilter: 'blur(12px)',
+                'linear-gradient(180deg, rgba(255,255,255,0.34) 0%, rgba(255,255,255,0.14) 100%)',
+              backdropFilter: 'blur(14px)',
+              WebkitBackdropFilter: 'blur(14px)',
               boxShadow:
-                '0 8px 18px rgba(0,0,0,0.18), inset 0 1px 0 rgba(255,255,255,0.16)',
+                '0 10px 24px rgba(0,0,0,0.22), inset 0 1px 0 rgba(255,255,255,0.18)',
               color: '#fff',
               fontWeight: 700,
               fontSize: '15px',
@@ -121,19 +121,74 @@ export function ResultScreen({
         </div>
 
         <div className="shrink-0">
-          <GlassCard className="px-4 py-3 text-center">
-            <h2 className="text-[18px] font-extrabold text-cream sm:text-[20px]">
+          <GlassCard
+            className="px-4 py-3 text-center"
+            style={{
+              background:
+                'linear-gradient(180deg, rgba(0,0,0,0.32) 0%, rgba(0,0,0,0.22) 100%)',
+              border: '1px solid rgba(255,255,255,0.22)',
+              boxShadow:
+                '0 10px 24px rgba(0,0,0,0.20), inset 0 1px 0 rgba(255,255,255,0.08)',
+            }}
+          >
+            <h2
+              className="text-[18px] font-extrabold text-cream sm:text-[20px]"
+              style={{
+                textShadow: '0 2px 10px rgba(0,0,0,0.35)',
+                letterSpacing: '0.2px',
+              }}
+            >
               {isLoading ? 'Готую привітання...' : 'Все готово, відправляй'}
             </h2>
           </GlassCard>
         </div>
 
-        <GlassCard className="min-h-0 overflow-hidden rounded-[24px]">
+        <GlassCard
+          className="min-h-0 overflow-hidden rounded-[24px]"
+          style={{
+            position: 'relative',
+            background:
+              'linear-gradient(180deg, rgba(0,0,0,0.34) 0%, rgba(0,0,0,0.24) 100%)',
+            border: '1px solid rgba(255,255,255,0.22)',
+            boxShadow:
+              '0 18px 34px rgba(0,0,0,0.26), inset 0 1px 0 rgba(255,255,255,0.08), inset 0 0 0 999px rgba(0,0,0,0.06)',
+            backdropFilter: 'blur(16px)',
+            WebkitBackdropFilter: 'blur(16px)',
+          }}
+        >
+          {!isLoading && (
+            <>
+              <div
+                style={{
+                  position: 'absolute',
+                  inset: 0,
+                  pointerEvents: 'none',
+                  background:
+                    'linear-gradient(180deg, rgba(0,0,0,0.18) 0%, rgba(0,0,0,0.30) 45%, rgba(0,0,0,0.38) 100%)',
+                  zIndex: 0,
+                }}
+              />
+              <div
+                style={{
+                  position: 'absolute',
+                  inset: '14px',
+                  borderRadius: '20px',
+                  background: 'rgba(0,0,0,0.18)',
+                  boxShadow: 'inset 0 0 30px rgba(0,0,0,0.20)',
+                  pointerEvents: 'none',
+                  zIndex: 0,
+                }}
+              />
+            </>
+          )}
+
           {isLoading ? (
             <div
               className="flex h-full items-center justify-center"
               style={{
                 padding: '24px',
+                position: 'relative',
+                zIndex: 1,
               }}
             >
               <div
@@ -271,13 +326,21 @@ export function ResultScreen({
               className="scrollbar-soft h-full min-h-0 overflow-y-auto"
               style={{
                 WebkitOverflowScrolling: 'touch',
+                position: 'relative',
+                zIndex: 1,
               }}
             >
               <div
-                className="text-cream text-[18px] font-medium leading-[1.8] sm:text-[20px]"
+                className="text-cream sm:text-[20px]"
                 style={{
                   padding: '24px 24px 28px',
                   wordBreak: 'break-word',
+                  fontSize: '19px',
+                  lineHeight: 1.9,
+                  fontWeight: 600,
+                  textShadow:
+                    '0 1px 2px rgba(0,0,0,0.55), 0 6px 18px rgba(0,0,0,0.35)',
+                  letterSpacing: '0.1px',
                 }}
               >
                 {paragraphs.map((paragraph, index) => (
@@ -312,13 +375,13 @@ export function ResultScreen({
               minWidth: 0,
               height: '88px',
               borderRadius: '20px',
-              border: '1px solid rgba(255,255,255,0.25)',
+              border: '1px solid rgba(255,255,255,0.26)',
               background:
-                'linear-gradient(180deg, rgba(255,255,255,0.22) 0%, rgba(255,255,255,0.10) 100%)',
-              backdropFilter: 'blur(10px)',
-              WebkitBackdropFilter: 'blur(10px)',
+                'linear-gradient(180deg, rgba(255,255,255,0.24) 0%, rgba(255,255,255,0.10) 100%)',
+              backdropFilter: 'blur(12px)',
+              WebkitBackdropFilter: 'blur(12px)',
               boxShadow:
-                '0 6px 16px rgba(0,0,0,0.18), inset 0 1px 0 rgba(255,255,255,0.12)',
+                '0 8px 20px rgba(0,0,0,0.20), inset 0 1px 0 rgba(255,255,255,0.12)',
               display: 'flex',
               flexDirection: 'column',
               alignItems: 'center',
@@ -338,6 +401,7 @@ export function ResultScreen({
                 fontSize: '14px',
                 lineHeight: 1.1,
                 whiteSpace: 'nowrap',
+                textShadow: '0 2px 8px rgba(0,0,0,0.28)',
               }}
             >
               Відправити
@@ -352,13 +416,13 @@ export function ResultScreen({
               minWidth: 0,
               height: '88px',
               borderRadius: '20px',
-              border: '1px solid rgba(255,255,255,0.25)',
+              border: '1px solid rgba(255,255,255,0.26)',
               background:
-                'linear-gradient(180deg, rgba(255,255,255,0.22) 0%, rgba(255,255,255,0.10) 100%)',
-              backdropFilter: 'blur(10px)',
-              WebkitBackdropFilter: 'blur(10px)',
+                'linear-gradient(180deg, rgba(255,255,255,0.24) 0%, rgba(255,255,255,0.10) 100%)',
+              backdropFilter: 'blur(12px)',
+              WebkitBackdropFilter: 'blur(12px)',
               boxShadow:
-                '0 6px 16px rgba(0,0,0,0.18), inset 0 1px 0 rgba(255,255,255,0.12)',
+                '0 8px 20px rgba(0,0,0,0.20), inset 0 1px 0 rgba(255,255,255,0.12)',
               display: 'flex',
               flexDirection: 'column',
               alignItems: 'center',
@@ -378,6 +442,7 @@ export function ResultScreen({
                 fontSize: '14px',
                 lineHeight: 1.1,
                 whiteSpace: 'nowrap',
+                textShadow: '0 2px 8px rgba(0,0,0,0.28)',
               }}
             >
               Скопіювати
@@ -397,7 +462,7 @@ export function ResultScreen({
               style={{
                 position: 'absolute',
                 inset: 0,
-                background: 'rgba(0,0,0,0.38)',
+                background: 'rgba(0,0,0,0.42)',
                 zIndex: 50,
               }}
             />
@@ -437,6 +502,7 @@ export function ResultScreen({
                     color: '#fff',
                     fontSize: '18px',
                     fontWeight: 800,
+                    textShadow: '0 2px 10px rgba(0,0,0,0.28)',
                   }}
                 >
                   Обери месенджер

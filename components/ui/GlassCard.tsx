@@ -1,5 +1,21 @@
 import { cn } from '@/lib/utils';
+import { HTMLAttributes } from 'react';
 
-export function GlassCard({ className, children }: { className?: string; children: React.ReactNode }) {
-  return <div className={cn('glass-card rounded-[22px]', className)}>{children}</div>;
+type GlassCardProps = HTMLAttributes<HTMLDivElement> & {
+  children: React.ReactNode;
+};
+
+export function GlassCard({
+  className,
+  children,
+  ...props
+}: GlassCardProps) {
+  return (
+    <div
+      className={cn('glass-card rounded-[22px]', className)}
+      {...props}
+    >
+      {children}
+    </div>
+  );
 }
