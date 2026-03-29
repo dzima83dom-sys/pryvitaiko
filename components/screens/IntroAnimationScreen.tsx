@@ -111,27 +111,18 @@ const sparkles = [
 
 export function IntroAnimationScreen() {
   return (
-    <div
-      className="relative overflow-hidden"
-      style={{ width: '100vw', height: '100dvh' }}
-    >
-      <div
-        className="absolute inset-0"
-        style={{
-          backgroundImage: "url('/bg_intro.png')",
-          backgroundSize: 'cover',
-          backgroundPosition: 'center center',
-          backgroundRepeat: 'no-repeat',
-        }}
+    <div className="relative h-screen w-screen overflow-hidden">
+      <img
+        src="/bg_intro.png"
+        alt="background"
+        className="absolute inset-0 h-full w-full object-cover"
       />
 
-      <div className="absolute inset-0 bg-black/5" />
-
       <motion.div
-        className="absolute left-[8%] top-[10%] h-[180px] w-[180px] rounded-full bg-[#ffd7e8]/50 blur-3xl"
+        className="absolute left-[8%] top-[10%] h-[180px] w-[180px] rounded-full bg-[#ffd7e8]/40 blur-3xl"
         animate={{
           scale: [1, 1.18, 1],
-          opacity: [0.45, 0.8, 0.45],
+          opacity: [0.35, 0.65, 0.35],
         }}
         transition={{
           duration: 4.2,
@@ -141,10 +132,10 @@ export function IntroAnimationScreen() {
       />
 
       <motion.div
-        className="absolute right-[6%] top-[14%] h-[220px] w-[220px] rounded-full bg-[#f0d8ff]/45 blur-3xl"
+        className="absolute right-[6%] top-[14%] h-[220px] w-[220px] rounded-full bg-[#f0d8ff]/35 blur-3xl"
         animate={{
           scale: [1.05, 0.95, 1.05],
-          opacity: [0.35, 0.65, 0.35],
+          opacity: [0.28, 0.5, 0.28],
         }}
         transition={{
           duration: 4.8,
@@ -154,10 +145,10 @@ export function IntroAnimationScreen() {
       />
 
       <motion.div
-        className="absolute bottom-[10%] left-[50%] h-[240px] w-[240px] -translate-x-1/2 rounded-full bg-white/35 blur-3xl"
+        className="absolute bottom-[10%] left-[50%] h-[240px] w-[240px] -translate-x-1/2 rounded-full bg-white/20 blur-3xl"
         animate={{
           scale: [1, 1.12, 1],
-          opacity: [0.2, 0.42, 0.2],
+          opacity: [0.12, 0.28, 0.12],
         }}
         transition={{
           duration: 5.4,
@@ -186,10 +177,10 @@ export function IntroAnimationScreen() {
           className="relative z-10 h-[420px] w-[320px] shrink-0"
         >
           <motion.div
-            className="absolute left-[206px] top-[116px] h-[120px] w-[120px] rounded-full bg-[#ffd7ef]/80 blur-3xl"
+            className="absolute left-[206px] top-[116px] h-[120px] w-[120px] rounded-full bg-[#ffd7ef]/55 blur-3xl"
             animate={{
               scale: [1, 1.28, 1],
-              opacity: [0.35, 0.95, 0.35],
+              opacity: [0.2, 0.55, 0.2],
             }}
             transition={{
               duration: 1.8,
@@ -199,10 +190,10 @@ export function IntroAnimationScreen() {
           />
 
           <motion.div
-            className="absolute left-[194px] top-[106px] h-[146px] w-[146px] rounded-full bg-white/55 blur-3xl"
+            className="absolute left-[194px] top-[106px] h-[146px] w-[146px] rounded-full bg-white/30 blur-3xl"
             animate={{
               scale: [0.96, 1.16, 0.96],
-              opacity: [0.2, 0.52, 0.2],
+              opacity: [0.12, 0.3, 0.12],
             }}
             transition={{
               duration: 2.2,
@@ -214,7 +205,7 @@ export function IntroAnimationScreen() {
           {sparkles.map((item, index) => (
             <motion.div
               key={index}
-              className="absolute rounded-full bg-white/85 shadow-[0_0_14px_rgba(255,255,255,0.85)]"
+              className="absolute rounded-full bg-white/80 shadow-[0_0_14px_rgba(255,255,255,0.75)]"
               style={{
                 left: item.left,
                 top: item.top,
