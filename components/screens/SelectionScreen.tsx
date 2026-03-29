@@ -48,40 +48,19 @@ export function SelectionScreen({
       </div>
 
       <motion.div
-        initial="hidden"
-        animate="show"
-        variants={{
-          hidden: {},
-          show: {
-            transition: {
-              staggerChildren: 0.035,
-              delayChildren: 0.03,
-            },
-          },
-        }}
+        initial={{ opacity: 0, y: 14 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.35, ease: 'easeOut' }}
         className="mt-3 grid grid-cols-3 gap-4"
       >
         {options.map((option) => (
-          <motion.div
+          <OptionCard
             key={option.id}
-            layout="position"
-            variants={{
-              hidden: { opacity: 0, y: 8, scale: 0.98 },
-              show: { opacity: 1, y: 0, scale: 1 },
-            }}
-            transition={{
-              duration: 0.22,
-              ease: 'easeOut',
-            }}
-            className="min-w-0"
-          >
-            <OptionCard
-              emoji={option.emoji}
-              label={option.label}
-              selected={selected === option.id}
-              onClick={() => onSelect(option)}
-            />
-          </motion.div>
+            emoji={option.emoji}
+            label={option.label}
+            selected={selected === option.id}
+            onClick={() => onSelect(option)}
+          />
         ))}
       </motion.div>
 
