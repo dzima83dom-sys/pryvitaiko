@@ -12,31 +12,45 @@ export function IntroAnimationScreen() {
 
       {/* Герой */}
       <motion.div
-  initial={{ opacity: 0, y: 24, scale: 0.94 }}
-  animate={{
-    opacity: 1,
-    y: [0, -8, 0],
-    scale: 1,
-  }}
-  transition={{
-    opacity: { duration: 0.55, ease: 'easeOut' },
-    y: {
-      duration: 2.4,
-      repeat: Infinity,
-      ease: 'easeInOut',
-    },
-    scale: { duration: 0.55, ease: 'easeOut' },
-  }}
-  className="relative z-10 flex items-center justify-center"
->
-  <Image
-    src="/hero-phone.png"
-    alt="hero"
-    width={320}
-    height={400}
-    className="object-contain"
-  />
-</motion.div>
+        initial={{ opacity: 0, y: 24, scale: 0.94 }}
+        animate={{
+          opacity: 1,
+          y: [0, -8, 0],
+          scale: 1,
+        }}
+        transition={{
+          opacity: { duration: 0.55, ease: 'easeOut' },
+          y: {
+            duration: 2.4,
+            repeat: Infinity,
+            ease: 'easeInOut',
+          },
+          scale: { duration: 0.55, ease: 'easeOut' },
+        }}
+        className="relative z-10 flex items-center justify-center"
+      >
+        <motion.div
+          className="absolute h-[150px] w-[150px] rounded-full bg-white/60 blur-3xl"
+          style={{ right: '18%', top: '43%' }}
+          animate={{
+            scale: [1, 1.18, 1],
+            opacity: [0.45, 0.8, 0.45],
+          }}
+          transition={{
+            duration: 1.8,
+            repeat: Infinity,
+            ease: 'easeInOut',
+          }}
+        />
+
+        <Image
+          src="/hero-phone.png"
+          alt="hero"
+          width={320}
+          height={400}
+          className="object-contain"
+        />
+      </motion.div>
 
     </div>
   );
