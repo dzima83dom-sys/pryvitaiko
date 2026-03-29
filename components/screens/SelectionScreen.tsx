@@ -31,7 +31,8 @@ export function SelectionScreen({
   onCustomValueChange: (value: string) => void;
   onSubmitCustom: () => void;
 }) {
-  const otherSelected = options.find((option) => option.id === selected)?.isOther === true;
+  const otherSelected =
+    options.find((option) => option.id === selected)?.isOther === true;
   const canContinue = customValue.trim().length > 0;
 
   return (
@@ -47,40 +48,50 @@ export function SelectionScreen({
       </div>
 
       <motion.div
-  initial={{ opacity: 0, y: 14 }}
-  animate={{ opacity: 1, y: 0 }}
-  transition={{ duration: 0.35 }}
-  className="mt-3 grid grid-cols-3 gap-4"
->
-  {options.map((option, index) => (
-    <motion.div
-      key={option.id}
-      initial={{ opacity: 0, y: 10 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{
-        duration: 0.25,
-        delay: index * 0.04,
-        ease: 'easeOut',
-      }}
-      style={{ width: '100%' }}
-    >
-      <OptionCard
-        emoji={option.emoji}
-        label={option.label}
-        selected={selected === option.id}
-        onClick={() => onSelect(option)}
-      />
-    </motion.div>
-  ))}
-</motion.div>
+        initial="hidden"
+        animate="show"
+        variants={{
+          hidden: {},
+          show: {
+            transition: {
+              staggerChildren: 0.035,
+              delayChildren: 0.03,
+            },
+          },
+        }}
+        className="mt-3 grid grid-cols-3 gap-4"
+      >
+        {options.map((option) => (
+          <motion.div
+            key={option.id}
+            layout="position"
+            variants={{
+              hidden: { opacity: 0, y: 8, scale: 0.98 },
+              show: { opacity: 1, y: 0, scale: 1 },
+            }}
+            transition={{
+              duration: 0.22,
+              ease: 'easeOut',
+            }}
+            className="min-w-0"
+          >
+            <OptionCard
+              emoji={option.emoji}
+              label={option.label}
+              selected={selected === option.id}
+              onClick={() => onSelect(option)}
+            />
+          </motion.div>
+        ))}
+      </motion.div>
 
-      <AnimatePresence>
+      <AnimatePresence mode="wait">
         {otherSelected ? (
           <motion.div
-            initial={{ opacity: 0, y: 12 }}
+            initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: 8 }}
-            transition={{ duration: 0.22 }}
+            exit={{ opacity: 0, y: 6 }}
+            transition={{ duration: 0.2, ease: 'easeOut' }}
             className="mt-auto flex flex-col gap-3 pt-4"
           >
             <TextField
