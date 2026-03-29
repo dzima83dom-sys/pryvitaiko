@@ -47,21 +47,36 @@ export function SelectionScreen({
       </div>
 
       <motion.div
-        initial={{ opacity: 0, y: 14 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.45 }}
-        className="mt-3 grid grid-cols-3 gap-4"
-      >
-        {options.map((option) => (
-          <OptionCard
-            key={option.id}
-            emoji={option.emoji}
-            label={option.label}
-            selected={selected === option.id}
-            onClick={() => onSelect(option)}
-          />
-        ))}
-      </motion.div>
+  initial="hidden"
+  animate="show"
+  variants={{
+    hidden: {},
+    show: {
+      transition: {
+        staggerChildren: 0.05,
+      },
+    },
+  }}
+  className="mt-3 grid grid-cols-3 gap-4"
+>
+  {options.map((option) => (
+    <motion.div
+      key={option.id}
+      variants={{
+        hidden: { opacity: 0, y: 10 },
+        show: { opacity: 1, y: 0 },
+      }}
+      transition={{ duration: 0.22, ease: 'easeOut' }}
+    >
+      <OptionCard
+        emoji={option.emoji}
+        label={option.label}
+        selected={selected === option.id}
+        onClick={() => onSelect(option)}
+      />
+    </motion.div>
+  ))}
+</motion.div>
 
       <AnimatePresence>
         {otherSelected ? (
