@@ -15,16 +15,19 @@ export function OptionCard({
 }) {
   return (
     <motion.button
+      initial={{ opacity: 0, y: 10 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.24, ease: 'easeOut' }}
       whileTap={{ scale: 0.96, y: 1 }}
       type="button"
       onClick={onClick}
       className="flex flex-col items-center justify-center text-center text-cream"
       style={{
-  minHeight: tall ? '90px' : '82px',
-  borderRadius: '22px',
-  padding: '10px 8px',
-  gap: '6px',
-  margin: '3px',
+        minHeight: tall ? '90px' : '82px',
+        borderRadius: '22px',
+        padding: '10px 8px',
+        gap: '6px',
+        margin: '3px',
         border: selected
           ? '1px solid rgba(255,255,255,0.34)'
           : '1px solid rgba(255,255,255,0.18)',
@@ -34,14 +37,13 @@ export function OptionCard({
         backdropFilter: 'blur(12px)',
         WebkitBackdropFilter: 'blur(12px)',
         boxShadow: selected
-          
-  ? `
+          ? `
       inset 0 1px 0 rgba(255,255,255,0.34),
       inset 0 -6px 12px rgba(88,28,135,0.14),
       0 6px 12px rgba(0,0,0,0.18),
       0 1px 3px rgba(255,255,255,0.08)
     `
-  : `
+          : `
       inset 0 1px 0 rgba(255,255,255,0.26),
       inset 0 -6px 12px rgba(88,28,135,0.10),
       0 5px 10px rgba(0,0,0,0.16),
