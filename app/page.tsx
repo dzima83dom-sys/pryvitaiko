@@ -96,26 +96,22 @@ if (showSplash) {
     transition={{ duration: 0.4 }}
     className="relative flex min-h-screen w-full items-center justify-center overflow-hidden bg-gradient-to-b from-[#fdf4ee] via-[#f7d6e6] to-[#eff4ee]"
   >
-      <div className="absolute inset-0">
-        <div className="absolute left-1/2 top-[24%] h-[320px] w-[320px] -translate-x-1/2 rounded-full bg-white/45 blur-3xl" />
-        <div className="absolute bottom-[-40px] left-[-20px] h-[220px] w-[220px] rounded-full bg-[#e11569]/12 blur-3xl" />
-        <div className="absolute right-[-30px] top-[10%] h-[220px] w-[220px] rounded-full bg-[#49295a]/10 blur-3xl" />
-      </div>
+      <div className="absolute inset-0 bg-gradient-to-b from-[#fdf4ee] via-[#f7d6e6] to-[#eff4ee]" />
 
       <img
-        src="/splash-hero.png"
-        alt="Привітайко"
-        className="relative z-10 w-[94%] max-w-[430px] object-contain animate-splashFade"
-      />
+  src="/splash-hero.png"
+  alt="Привітайко"
+  className="relative z-10 w-[78%] max-w-[300px] object-contain -translate-y-10 animate-splashFade"
+/>
 
-      <div className="absolute bottom-7 left-1/2 z-10 w-full -translate-x-1/2 px-6 text-center">
-        <p className="text-[11px] font-medium tracking-[0.04em] text-[#49295a]/72">
-          Version 1.0.0
-        </p>
-        <p className="mt-1 text-[11px] font-medium tracking-[0.02em] text-[#49295a]/72">
-          © 2026 Dmytro Zyma. All rights reserved.
-        </p>
-      </div>
+      <div className="fixed bottom-6 left-0 right-0 z-20 px-6 text-center">
+  <p className="text-[11px] font-medium tracking-[0.04em] text-[#49295a]/72">
+    Version 1.0.0
+  </p>
+  <p className="mt-1 text-[11px] font-medium tracking-[0.02em] text-[#49295a]/72">
+    © 2026 Dmytro Zyma. All rights reserved.
+  </p>
+</div>
     </motion.div>
   );
 }
