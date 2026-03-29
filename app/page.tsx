@@ -234,6 +234,7 @@ export default function HomePage() {
           store.setScreen('emotion');
         }}
         handleCopy={copyGreeting}
+        onRegenerate={generateGreeting}
       />
     );
   }, [currentScreen, store]);

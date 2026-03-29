@@ -6,16 +6,19 @@ import { Share2, Copy, Send, Phone, X } from 'lucide-react';
 import { AppShell } from '@/components/ui/AppShell';
 import { GlassCard } from '@/components/ui/GlassCard';
 import GenerationCountdown from '@/components/GenerationCountdown';
+
 export function ResultScreen({
   text,
   onBack,
   isLoading,
   handleCopy,
+  onRegenerate,
 }: {
   text: string;
   onBack: () => void;
   isLoading: boolean;
   handleCopy: () => void;
+  onRegenerate: () => void;
 }) {
   const paragraphs = text.split('\n\n');
   const [showShareFallback, setShowShareFallback] = useState(false);
@@ -84,7 +87,7 @@ export function ResultScreen({
       <div
         className="grid h-full min-h-0 px-4 pt-4"
         style={{
-          gridTemplateRows: 'auto auto minmax(0, 1fr) auto',
+          gridTemplateRows: '56px 60px minmax(0, 1fr) 56px 88px',
           rowGap: '12px',
           paddingBottom: 'max(16px, env(safe-area-inset-bottom))',
         }}
@@ -122,7 +125,7 @@ export function ResultScreen({
 
         <div className="shrink-0">
           <GlassCard
-            className="px-4 py-3 text-center"
+            className="px-4 py-3 text-center h-full flex items-center justify-center"
             style={{
               background:
                 'linear-gradient(180deg, rgba(0,0,0,0.32) 0%, rgba(0,0,0,0.22) 100%)',
@@ -184,14 +187,14 @@ export function ResultScreen({
 
           {isLoading ? (
             <div
-  className="flex h-full items-center justify-center flex-col"
-  style={{
-    padding: '24px',
-    position: 'relative',
-    zIndex: 1,
-    gap: '10px',
-  }}
->
+              className="flex h-full items-center justify-center flex-col"
+              style={{
+                padding: '24px',
+                position: 'relative',
+                zIndex: 1,
+                gap: '10px',
+              }}
+            >
               <GenerationCountdown isVisible={isLoading} />
               <div
                 style={{
@@ -323,10 +326,10 @@ export function ResultScreen({
             </div>
           ) : (
             <motion.div
-  initial={{ opacity: 0, scale: 0.96, y: 20 }}
-  animate={{ opacity: 1, scale: 1, y: 0 }}
-  transition={{ duration: 0.5, ease: 'easeOut' }}
-  className="scrollbar-soft h-full min-h-0 overflow-y-auto"
+              initial={{ opacity: 0, scale: 0.96, y: 20 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              transition={{ duration: 0.5, ease: 'easeOut' }}
+              className="scrollbar-soft h-full min-h-0 overflow-y-auto"
               style={{
                 WebkitOverflowScrolling: 'touch',
                 position: 'relative',
@@ -361,6 +364,38 @@ export function ResultScreen({
             </motion.div>
           )}
         </GlassCard>
+
+        {!isLoading ? (
+          <div className="shrink-0">
+            <button
+              type="button"
+              onClick={onRegenerate}
+              style={{
+                width: '100%',
+                height: '56px',
+                padding: '0 16px',
+                borderRadius: '20px',
+                border: '1px solid rgba(255,255,255,0.22)',
+                background:
+                  'linear-gradient(180deg, rgba(0,0,0,0.32) 0%, rgba(0,0,0,0.22) 100%)',
+                backdropFilter: 'blur(14px)',
+                WebkitBackdropFilter: 'blur(14px)',
+                boxShadow:
+                  '0 10px 24px rgba(0,0,0,0.20), inset 0 1px 0 rgba(255,255,255,0.08)',
+                color: '#fff',
+                fontWeight: 800,
+                fontSize: '18px',
+                textAlign: 'center',
+                textShadow: '0 2px 10px rgba(0,0,0,0.35)',
+                letterSpacing: '0.2px',
+              }}
+            >
+              Ще один варіант
+            </button>
+          </div>
+        ) : (
+          <div />
+        )}
 
         <div
           className="shrink-0"
