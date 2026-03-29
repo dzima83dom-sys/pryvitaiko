@@ -66,22 +66,17 @@ export function SelectionScreen({
 
       <AnimatePresence mode="wait">
         {otherSelected ? (
-          <motion.div
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: 6 }}
-            transition={{ duration: 0.2, ease: 'easeOut' }}
-            className="mt-auto flex flex-col gap-3 pt-4"
-          >
-            <TextField
-              value={customValue}
-              onChange={onCustomValueChange}
-              placeholder={customPlaceholder}
-            />
-            <PrimaryButton disabled={!canContinue} onClick={onSubmitCustom}>
-              Рухаємося далі
-            </PrimaryButton>
-          </motion.div>
+          <div className="mt-3 grid grid-cols-3 gap-4">
+  {options.map((option) => (
+    <OptionCard
+      key={option.id}
+      emoji={option.emoji}
+      label={option.label}
+      selected={selected === option.id}
+      onClick={() => onSelect(option)}
+    />
+  ))}
+</div>
         ) : null}
       </AnimatePresence>
     </AppShell>
