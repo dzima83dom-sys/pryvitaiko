@@ -111,8 +111,14 @@ const sparkles = [
 
 export function IntroAnimationScreen() {
   return (
-    <div className="relative flex h-screen w-full items-center justify-center overflow-hidden bg-gradient-to-b from-[#fdf4ee] via-[#f7d6e6] to-[#eff4ee]">
-      <div className="absolute inset-0 bg-gradient-to-b from-[#fdf4ee] via-[#f7d6e6] to-[#eff4ee]" />
+    <div className="relative flex h-screen w-full items-center justify-center overflow-hidden">
+      <Image
+        src="/bg_intro.png"
+        alt="background"
+        fill
+        priority
+        className="object-cover"
+      />
 
       <motion.div
         className="absolute left-[8%] top-[10%] h-[180px] w-[180px] rounded-full bg-[#ffd7e8]/50 blur-3xl"
