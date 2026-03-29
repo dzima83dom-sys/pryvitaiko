@@ -30,7 +30,7 @@ export default function HomePage() {
 
     const appTimer = setTimeout(() => {
       setPhase('app');
-    }, 3400);
+    }, 5800);
 
     return () => {
       clearTimeout(splashTimer);
