@@ -1,6 +1,5 @@
 'use client';
 
-import { motion } from 'framer-motion';
 import { AppShell } from '@/components/ui/AppShell';
 import { OptionCard } from '@/components/ui/OptionCard';
 import { PrimaryButton } from '@/components/ui/PrimaryButton';
@@ -40,12 +39,7 @@ export function DetailsScreen({
         </div>
       </div>
 
-      <motion.div
-        initial={{ opacity: 0, y: 14 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.45 }}
-        className="flex flex-col gap-4"
-      >
+      <div className="flex flex-col gap-4">
         <TextField
           value={name}
           onChange={onNameChange}
@@ -105,7 +99,7 @@ export function DetailsScreen({
             Рухаємося далі
           </PrimaryButton>
         </div>
-      </motion.div>
+      </div>
     </AppShell>
   );
 }

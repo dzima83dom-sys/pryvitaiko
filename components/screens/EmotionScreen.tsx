@@ -32,12 +32,7 @@ export function EmotionScreen({
         </div>
       </div>
 
-      <motion.div
-        initial={{ opacity: 0, y: 14 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.45 }}
-        className="mt-3 grid grid-cols-3 gap-3.5"
-      >
+      <div className="mt-3 grid grid-cols-3 gap-3.5">
         {EMOTION_OPTIONS.map((option) => (
           <OptionCard
             key={option.id}
@@ -47,7 +42,7 @@ export function EmotionScreen({
             onClick={() => onSelect(option.id)}
           />
         ))}
-      </motion.div>
+      </div>
 
       <div className="mt-auto pt-4">
         <PrimaryButton disabled={!canContinue} onClick={onSubmit}>
