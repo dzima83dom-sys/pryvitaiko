@@ -104,11 +104,11 @@ if (showSplash) {
   className="relative z-10 w-[78%] max-w-[300px] object-contain -translate-y-10 animate-splashFade"
 />
 
-      <div className="fixed bottom-6 left-0 right-0 z-20 px-6 text-center">
-  <p className="text-[11px] font-medium tracking-[0.04em] text-[#49295a]/72">
+     <div className="fixed bottom-2 left-0 right-0 z-20 px-6 text-center leading-tight">
+  <p className="text-[10px] font-medium tracking-[0.03em] text-[#49295a]/65">
     Version 1.0.0
   </p>
-  <p className="mt-1 text-[11px] font-medium tracking-[0.02em] text-[#49295a]/72">
+  <p className="mt-0.5 text-[10px] font-medium tracking-[0.02em] text-[#49295a]/65">
     © 2026 Dmytro Zyma. All rights reserved.
   </p>
 </div>
