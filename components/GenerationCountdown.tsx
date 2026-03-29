@@ -3,14 +3,14 @@
 import { useEffect, useRef, useState } from "react";
 
 export default function GenerationCountdown({ isVisible }: { isVisible: boolean }) {
-  const [count, setCount] = useState(15);
+  const [count, setCount] = useState(20);
   const [pulse, setPulse] = useState(false);
  const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
 
   useEffect(() => {
     if (!isVisible) return;
 
-    setCount(15);
+    setCount(20);
 
     intervalRef.current = setInterval(() => {
       setPulse(true);
